@@ -10,6 +10,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  name: {
+    type: String,
+    required: true
+  },
+  role: {//if staff(Admin) of Driver
+    type: String,
+    required: true
+  },
+  isApproved: { //is he an apprived as an driver/admin or not .. 
+    type: Boolean,
+    required: true
+  },
   token: String
 }, {
   timestamps: true,
