@@ -14,7 +14,7 @@ const requireToken = passport.authenticate('bearer',{session:false})
 //get all users
 router.get('/users',requireToken,(req,res,next) => {
     //const userId = req.user._id
-    User.find()
+    User.find({"isApproved":false})
     .then(users => {
         res.status(200).json({users:users});
     })
@@ -35,11 +35,11 @@ router.get('/users/:id',requireToken,(req,res,next) => {
 //UPDATE Approvel
 router.patch('/users/:id',requireToken,(req,res,next) => {
     const userId = req.params.id;
-    const approval = req.body.user
+    const approval = req.body.isApproved
     User.findById(userId)
     .then((user) => {
-        //requireOwnership(req,car)
-        return user.update(approval)
+        user.isApproved = approval
+        return user.save()
     })
     .then(()=> res.sendStatus(204))
     .catch(next)
