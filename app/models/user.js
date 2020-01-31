@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  role: {//if staff(Admin) of Driver
+  role: {//if staff(Admin) or Driver
     type: String,
     required: true
   },
