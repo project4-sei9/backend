@@ -5,6 +5,13 @@ const studentsSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
+    owner:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:"User",
+      required:true
+      }
+    
+    ,
     address: 
         { latitude: {type: String,
                     required: true
