@@ -14,11 +14,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  role: {//if staff(Admin) or Driver
-    type: String,
+  driver: {//if staff(Admin) or Driver
+    type: Boolean,
     required: true
   },
-  isApproved: { //is he an apprived as an driver/admin or not .. 
+  parent: { //is he an apprived as an driver/admin or not .. 
     type: Boolean,
     required: true
   },
