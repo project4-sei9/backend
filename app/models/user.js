@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -33,11 +32,9 @@ const userSchema = new mongoose.Schema({
     }
   }
 })
-
 userSchema.virtual('examples', {
   ref: 'Example',
   localField: '_id',
   foreignField: 'owner'
 });
-
 module.exports = mongoose.model('User', userSchema)

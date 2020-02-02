@@ -14,10 +14,11 @@ const studentsSchema = new mongoose.Schema({
     ,
     address: 
         { latitude: {type: String,
-                    required: true
+                    // required: true
                     },
           longitude: {type: String,
-                        required: true}
+                        // required: true
+                      }
         }
   })
 
@@ -29,16 +30,20 @@ const busSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    required: true
+    // required: true
   },
-  location:  { latitude: {type: String,
-                          required: true
-    },
-                longitude: {type: String,
-                            required: true}
-},
+  location:  { 
+                latitude: {
+                          type: String,
+                          // required: true
+                           },
+                longitude: {
+                           type: String,
+                            // required: true
+                          }
+  },
   students: [studentsSchema],
-  driver:{
+  owner:{
     type:mongoose.Schema.Types.ObjectId,
     ref:"User",
     required:true
@@ -47,4 +52,5 @@ const busSchema = new mongoose.Schema({
 
 const Bus = mongoose.model('Bus', busSchema)
 const Student = mongoose.model('Student', studentsSchema)
-module.exports = {Bus,Student}
+
+module.exports = { Bus , Student}

@@ -4,27 +4,20 @@ const crypto = require('crypto')
 // Passport docs: http://www.passportjs.org/docs/
 const passport = require('passport')
 // bcrypt docs: https://github.com/kelektiv/node.bcrypt.js
-const bcrypt = require('bcrypt')
-
+const bcrypt = require('bcryptjs')
 // see above for explanation of "salting", 10 rounds is recommended
 const bcryptSaltRounds = 10
-
 // pull in error types and the logic to handle them and set status codes
 const errors = require('../../lib/custom_errors')
-
 const BadParamsError = errors.BadParamsError
 const BadCredentialsError = errors.BadCredentialsError
-
 const User = require('../models/user')
-
 // passing this as a second argument to `router.<verb>` will make it
 // so that a token MUST be passed for that route to be available
 // it will also set `res.user`
 const requireToken = passport.authenticate('bearer', { session: false })
-
 // instantiate a router (mini app that only handles routes)
 const router = express.Router()
-
 // SIGN UP
 // POST /sign-up
 // this mean is parent
@@ -96,13 +89,11 @@ router.post('/sign-up/driver', (req, res, next) => {
     // pass any errors along to the error handler
     .catch(next)
 })
-
 // SIGN IN
 // POST /sign-in
 router.post('/sign-in', (req, res, next) => {
   const pw = req.body.credentials.password
   let user
-
   // find a user based on the email that was passed
   User.findOne({ email: req.body.credentials.email })
     .then(record => {
@@ -136,7 +127,6 @@ router.post('/sign-in', (req, res, next) => {
     })
     .catch(next)
 })
-
 // CHANGE password
 // PATCH /change-password
 router.patch('/change-password', requireToken, (req, res, next) => {
@@ -168,7 +158,6 @@ router.patch('/change-password', requireToken, (req, res, next) => {
     // pass any errors along to the error handler
     .catch(next)
 })
-
 router.delete('/sign-out', requireToken, (req, res, next) => {
   // create a new random token for the user, invalidating the current one
   req.user.token = crypto.randomBytes(16)
@@ -177,5 +166,4 @@ router.delete('/sign-out', requireToken, (req, res, next) => {
     .then(() => res.sendStatus(204))
     .catch(next)
 })
-
 module.exports = router
