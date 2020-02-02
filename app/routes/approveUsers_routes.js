@@ -1,7 +1,7 @@
 const express = require('express');
 //import router into express
 const router = express.Router();
-//import car model
+//import user model
 const User = require('../models/user');
 const customErrors = require('../../lib/custom_errors')
 // we'll use this function to send 404 when non-existant document is requested
