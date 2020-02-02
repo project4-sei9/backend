@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -14,11 +13,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  role: {//if staff(Admin) or Driver
-    type: String,
+  driver: {//if he is Driver or not
+    type: Boolean,
     required: true
   },
-  isApproved: { //is he an apprived as an driver/admin or not .. 
+  parent: { //if he is Parent or not 
     type: Boolean,
     required: true
   },
@@ -33,11 +32,9 @@ const userSchema = new mongoose.Schema({
     }
   }
 })
-
 userSchema.virtual('examples', {
   ref: 'Example',
   localField: '_id',
   foreignField: 'owner'
 });
-
 module.exports = mongoose.model('User', userSchema)
