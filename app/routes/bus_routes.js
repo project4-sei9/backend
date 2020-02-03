@@ -57,6 +57,7 @@ router.get('/buses/:busId',requireToken,(req,res,next) => {
 //PATCH -> small data
 //PATCH - /cars/:id
 router.patch('/buses/:busId',requireToken,(req,res,next) => {
+   // console.log("________________________")
     const busId = req.params.busId;
     const updatedBus = req.body.bus
     Bus.findById(busId)

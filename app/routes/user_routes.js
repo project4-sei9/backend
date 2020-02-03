@@ -12,6 +12,7 @@ const errors = require('../../lib/custom_errors')
 const BadParamsError = errors.BadParamsError
 const BadCredentialsError = errors.BadCredentialsError
 const User = require('../models/user')
+const Bus = require('../models/Bus')
 // passing this as a second argument to `router.<verb>` will make it
 // so that a token MUST be passed for that route to be available
 // it will also set `res.user`
@@ -50,6 +51,7 @@ router.post('/sign-up', (req, res, next) => {
     // send the new user object back with status 201, but `hashedPassword`
     // won't be send because of the `transform` in the User model
     .then(user => res.status(201).json({ user: user.toObject() }))
+  
     // pass any errors along to the error handler
     .catch(next)
 })
@@ -58,6 +60,8 @@ router.post('/sign-up', (req, res, next) => {
 // POST /sign-up
 // this mean is driver
 router.post('/sign-up/driver', (req, res, next) => {
+  const busNu = 0
+  
   // start a promise chain, so that any errors will pass to `handle`
   Promise.resolve(req.body.credentials)
     // reject any requests where `credentials.password` is not present, or where
@@ -86,6 +90,10 @@ router.post('/sign-up/driver', (req, res, next) => {
     // send the new user object back with status 201, but `hashedPassword`
     // won't be send because of the `transform` in the User model
     .then(user => res.status(201).json({ user: user.toObject() }))
+    // .then((busNo)=> {
+    //   busNu +=1
+    //   busNo = req.body.bus_no 
+    //   Bus.create(busNo:busNu)})
     // pass any errors along to the error handler
     .catch(next)
 })
