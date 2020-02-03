@@ -3,7 +3,7 @@ const express = require('express');
 //import router into express
 const router = express.Router();
 //import car model
-const Bus = require('../models/Buses');
+const Bus = require('../models/Bus');
 // const Student = require('../models/student')
 // const User = require('../models/user')
 const customErrors = require('../../lib/custom_errors')
