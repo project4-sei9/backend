@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
- const {Student} = require('./Bus')
+const {studentsSchema} = require('./student')
+
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -16,13 +17,13 @@ const userSchema = new mongoose.Schema({
   },
   driver: {//if staff(Admin) or Driver
     type: Boolean,
-    required: true
+    //required: true
   },
-  parent: { //is he an apprived as an driver/admin or not .. 
+  guardian: { //is he an apprived as an driver/admin or not .. 
     type: Boolean,
-    required: true
+    //required: true
   },
-  // students: [Student],
+  students:[studentsSchema],
   token: String
 }, {
   timestamps: true,

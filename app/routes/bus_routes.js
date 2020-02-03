@@ -3,8 +3,9 @@ const express = require('express');
 //import router into express
 const router = express.Router();
 //import car model
-const {Bus,Student} = require('../models/Bus');
-const User = require('../models/user')
+const Bus = require('../models/Bus');
+// const Student = require('../models/student')
+// const User = require('../models/user')
 const customErrors = require('../../lib/custom_errors')
 // we'll use this function to send 404 when non-existant document is requested
 const requireOwnership = customErrors.requireOwnership
@@ -22,24 +23,21 @@ router.get('/buses', requireToken,(req,res,next)=>{
      })
    .catch(next)
    })
-
 //Index 
-
-
 //create : 
 //POST - /bus
+//  5e37df9fe9d25756ff143cf3
 router.post('/buses',requireToken,(req,res,next) => {
-    const userId = req.user._id;
-    const newBus = req.body.bus
-    //console.log(newBus)
-     newBus.owner = userId
-     Bus.create(newBus)
+    const newBus = new Bus(req.body)
+     newBus.driver = req.user._id
+     newBus.save()
      .then(bus => {
          res.status(201).json({bus:bus})
      })
     .catch(next)
 })
   
+
 //SHOW 
 // GET - /buses/:id
 router.get('/buses/:busId',requireToken,(req,res,next) => {

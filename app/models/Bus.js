@@ -1,26 +1,6 @@
 const mongoose = require('mongoose')
+const {studentsSchema} = require('./student')
 
-const studentsSchema = new mongoose.Schema({
-    name: {
-      type: String,
-      required: true,
-    },
-    owner:{
-      type:mongoose.Schema.Types.ObjectId,
-      ref:"User",
-      required:true
-      }
-    
-    ,
-    address: 
-        { latitude: {type: String,
-                    // required: true
-                    },
-          longitude: {type: String,
-                        // required: true
-                      }
-        }
-  })
 
 const busSchema = new mongoose.Schema({
   bus_no: {
@@ -51,6 +31,5 @@ const busSchema = new mongoose.Schema({
 })
 
 const Bus = mongoose.model('Bus', busSchema)
-const Student = mongoose.model('Student', studentsSchema)
 
-module.exports = { Bus , Student}
+module.exports = Bus
