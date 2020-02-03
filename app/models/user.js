@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+ const {Student} = require('./Bus')
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -21,6 +22,7 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     required: true
   },
+  // students: [Student],
   token: String
 }, {
   timestamps: true,
