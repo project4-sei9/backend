@@ -22,7 +22,14 @@ router.get('/students',requireToken,(req,res) => {
         students: req.user.students
     })
  })
-
+ router.get('/student/buses/', requireToken,(req,res,next)=>{
+   // const userId = req.user._id;
+   Bus.find({})
+    .then(buses => {
+         res.status(200).json({buses:buses});
+     })
+   .catch(next)
+   })
 //SHOW student
 // GET - /user/:id
 router.get('/students/:id',requireToken,(req,res) => { 
@@ -44,29 +51,38 @@ router.get('/students/:id',requireToken,(req,res) => {
 //     err => res.status(400).send(err)
 // )
 router.post('/students',requireToken,(req,res) => { 
-    const newStudent = new Student(req.body.student)
+    const newStudent = new Student(req.body.data.student)
     req.user.students = req.user.students.concat(newStudent)
     req.user.save()
     .then(
         user => {
-            Bus.findById(req.body.bus)
-            .then(
-                bus => {
-                    bus.students = bus.students.concat(newStudent)
-                    bus.save()
+            console.log(req.body.data.bus)
+            Bus.update({
+                _id:req.body.data.bus
+            },{
+                $push:{students : newStudent} 
+            })
+            // .then(
+            //     bus => {
+            //         // console.log(bus._id);
+            //         // console.log('xxx')
+            //         // bus.students = bus.students.concat(newStudent)
+
+            //         return bus.save()
                     .then(
-                        bus => res.status(201).send(bus)
+                        () => { 
+                            res.sendStatus(201)
+                        }
                         
                     )
-                    .then( () => res.send(bus))
                     .catch(
                         err => res.status(400).send(err)
                     )
-                }
-            )
-            .catch(
-                err => res.status(400).send(err)
-            )
+                
+            // )
+            // .catch(
+            //     err => res.status(400).send(err)
+            // )
         }
     )
     .catch(
