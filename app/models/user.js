@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const {studentsSchema} = require('./student')
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -14,14 +14,19 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  role: {//if staff(Admin) or Driver
-    type: String,
-    required: true
-  },
-  isApproved: { //is he an apprived as an driver/admin or not .. 
+  guardian: {
     type: Boolean,
     required: true
   },
+  driver: {
+    type: Boolean,
+    required: true
+  },
+  number: {
+    type: String,
+    required: true
+  },
+  students:[studentsSchema],
   token: String
 }, {
   timestamps: true,
