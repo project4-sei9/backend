@@ -15,7 +15,7 @@ const requireToken = passport.authenticate('bearer',{session:false})
 
 //Index 
 //Index - get all buses 
-router.get('/buses', requireToken,(req,res,next)=>{
+router.get('/buses',(req,res,next)=>{
     const userId = req.user._id;
    Bus.find({})
     .then(buses => {
@@ -27,7 +27,7 @@ router.get('/buses', requireToken,(req,res,next)=>{
 //create : 
 //POST - /bus
 //  5e37df9fe9d25756ff143cf3
-router.post('/buses',requireToken,(req,res,next) => {
+router.post('/buses',(req,res,next) => {
     const newBus = new Bus(req.body)
      newBus.driver = req.user._id
      newBus.save()
@@ -54,13 +54,13 @@ router.get('/buses/:busId',requireToken,(req,res,next) => {
 // PUT -> Large data
 //PATCH -> small data
 //PATCH - /cars/:id
-router.patch('/buses/:busId',requireToken,(req,res,next) => {
+router.patch('/buses/:busId',(req,res,next) => {
    // console.log("________________________")
     const busId = req.params.busId;
     const updatedBus = req.body.bus
     Bus.findById(busId)
     .then( (bus) => {
-        requireOwnership(req,bus)
+        // requireOwnership(req,bus)
         return bus.update(updatedBus)
     } )
     .then(() =>  res.sendStatus(204))
